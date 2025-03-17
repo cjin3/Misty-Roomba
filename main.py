@@ -1,6 +1,6 @@
 from mistyPy.GenerateRobot import RobotGenerator
 RobotGenerator("ROBOT-IP_ADDRESS-GOES-HERE")
-#Notes: May need a different file for autonomous and shared control?
+
 ''' 
 Autonomous mode outline:
 
