@@ -14,6 +14,8 @@ When robot reaches end of maze -> robot stops
 -Need to decide how robot determines that they have gotten out of the maze
 -Easiest way would be to have a counter for the number of turns the robot need to make (draw out a map perhaps)
 
+
+
 Shared control outline:
 
 When running -> move control
