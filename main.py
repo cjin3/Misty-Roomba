@@ -1,4 +1,5 @@
 from mistyPy.Robot import Robot
+from mistyPy.Events import Events
 import time
 
 misty = Robot()
