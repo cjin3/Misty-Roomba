@@ -1,4 +1,4 @@
-misty.Debug("roomba mode");
+misty.Debug("shared control");
 
 let time = 10000;
 let foundWall = false;
@@ -11,13 +11,12 @@ misty.AddPropertyTest("FrontTOFNoWall", "SensorPosition", "==", "Center", "strin
 misty.AddPropertyTest("FrontTOFNoWall", "DistanceInMeters", ">", 0.2, "double");
 misty.RegisterEvent("FrontTOFNoWall", "TimeOfFlight", 250);
 
-autonomous();
+sharedControl();
 
-function autonomous(){
+function sharedControl(){
     while (time > 0){
-        misty.DriveTime(30, 0, 0.2);
-        if (foundWall){
-            turn();
+        if (!foundWall){
+            misty.DriveTime(30, 0, 0.2);
         }
         time -= 1;
     }
@@ -35,8 +34,4 @@ function _FrontTOFNoWall(data){
     misty.Debug("No More Wall!");
     misty.Debug(frontTOF.DistanceInMeters);
     foundWall = false;
-}
-
-function turn(){
-    misty.DriveTime(0, 30, 0.2);
 }
