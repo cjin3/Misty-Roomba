@@ -33,10 +33,14 @@ When robot reaches end of maze -> robot stops
 misty = Robot()
 
 currentTime = time.time()
-timeRun = 3 #time program will run in seconds
+timeRun = 3 #time program will run for in seconds
 
+#robot parameters
 LIN_SPEED = 30 #linear speed
 ANG_SPEED = 30 #angular speed
+
+can_move_forward = True
+
 
 def main():
     run = input("-1 for testing, 0 for autonomous, 1 for shared control")
@@ -49,16 +53,25 @@ def main():
         sharedControl()
     return 0
     
-
+def checkDistance():
+    misty.register_event(event_name='time_of_flight', event_type=Events.TimeOfFlightDistance, callback_function=canMoveForward, keep_alive=True)
 
 def autonomous():
+    checkDistance()
     while(time.time()-currentTime < timeRun):
-        if (canMoveForward()):
+        if (can_move_forward):
             misty.move(LIN_SPEED, 0)
         else:
             turn();
 
-def canMoveForward():
-    return 
+def canMoveForward(data):
+    print(data)
+    if data["message"]["DistanceInMeters"] < 0.3:
+        can_move_forward = False
+    else:
+        can_move_forward = True
+
+def turn():
+    print("tturning")
 
 main()
