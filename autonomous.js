@@ -18,7 +18,6 @@ function autonomous(){
         misty.DriveTime(30, 0, 0.2);
         if (foundWall){
             turn();
-            foundWall = false;
         }
         time -= 1;
     }
@@ -31,6 +30,13 @@ function _FrontTOFWall(data){
     foundWall = true;
 }
 
+function _FrontTOFNoWall(data){
+    let frontTOF = data.PropertyTestResults[0].PropertyParent;
+    misty.Debug("Found Wall!");
+    misty.Debug(frontTOF.DistanceInMeters);
+    foundWall = false;
+}
+
 function turn(){
-    
+    misty.DriveTime(0, 30, 0.2);
 }
