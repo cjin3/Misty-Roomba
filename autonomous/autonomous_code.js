@@ -33,7 +33,7 @@ function _FrontTOF(data) {
 
 function _FrontNoTOF(data){
     misty.ChangeLED(0,255,0);
-    misty.DriveTime(2, 0, 100000);
+    misty.DriveTime(3, 0, 100000);
 
     misty.AddPropertyTest("FrontTOF", "SensorPosition", "==", "Center", "string");
     misty.AddPropertyTest("FrontTOF", "DistanceInMeters", "<=", 0.2, "double");

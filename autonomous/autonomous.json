@@ -1,6 +1,6 @@
 {
-  "Name": "hting",
-  "UniqueId": "76227010-7210-4e99-bbf6-ca94ac24acff",
+  "Name": "autonomous",
+  "UniqueId": "10fd05aa-16fa-4a1c-b767-986fb96709b4",
   "Description": "My skill is amazing!",
   "StartupRules": [
     "Manual",
