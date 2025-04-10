@@ -5,12 +5,16 @@ var REGTIME = 100;
 
 // Issue commands to change LED and start driving
 misty.ChangeLED(0, 255, 0); // green, GO!
-misty.DriveTime(7, 0, 1000000);
+misty.DriveTime(15, 0, 1000);
 
 // Register for TimeOfFlight data and add property tests
 misty.AddPropertyTest("FrontTOF", "SensorPosition", "==", "Center", "string");
 misty.AddPropertyTest("FrontTOF", "DistanceInMeters", "<=", 0.2, "double");
 misty.RegisterEvent("FrontTOF", "TimeOfFlight", REGTIME);
+
+misty.AddPropertyTest("FrontNoTOF", "SensorPosition", "==", "Center", "string");
+misty.AddPropertyTest("FrontNoTOF", "DistanceInMeters", ">", 0.2, "double");
+misty.RegisterEvent("FrontNoTOF", "TimeOfFlight", REGTIME);
 
 // FrontTOF callback function
 function _FrontTOF(data) {
@@ -22,20 +26,28 @@ function _FrontTOF(data) {
     misty.Debug(frontTOF.SensorPosition);
     // Issue commands to change LED and stop driving
     misty.ChangeLED(0, 0, 255);
-    misty.DriveTime(0, -30, 1000000);
-    misty.Pause(2900);
-
-    misty.AddPropertyTest("FrontNoTOF", "SensorPosition", "==", "Center", "string");
-    misty.AddPropertyTest("FrontNoTOF", "DistanceInMeters", ">", 0.2, "double");
-    misty.RegisterEvent("FrontNoTOF", "TimeOfFlight", REGTIME);
-    misty.Debug("ending skill helloworld_timeofflight ");
-}
-
-function _FrontNoTOF(data){
-    misty.ChangeLED(0,255,0);
-    misty.DriveTime(3, 0, 100000);
+    misty.DriveTime(0, -30, 3000);
+    misty.Pause(1000);
 
     misty.AddPropertyTest("FrontTOF", "SensorPosition", "==", "Center", "string");
     misty.AddPropertyTest("FrontTOF", "DistanceInMeters", "<=", 0.2, "double");
     misty.RegisterEvent("FrontTOF", "TimeOfFlight", REGTIME);
+
+    misty.AddPropertyTest("FrontNoTOF", "SensorPosition", "==", "Center", "string");
+    misty.AddPropertyTest("FrontNoTOF", "DistanceInMeters", ">", 0.2, "double");
+    misty.RegisterEvent("FrontNoTOF", "TimeOfFlight", REGTIME);
+}
+
+function _FrontNoTOF(data){
+    misty.ChangeLED(0,255,0);
+    misty.DriveTime(15, 0, 1000);
+    
+
+    misty.AddPropertyTest("FrontTOF", "SensorPosition", "==", "Center", "string");
+    misty.AddPropertyTest("FrontTOF", "DistanceInMeters", "<=", 0.2, "double");
+    misty.RegisterEvent("FrontTOF", "TimeOfFlight", REGTIME);
+
+    misty.AddPropertyTest("FrontNoTOF", "SensorPosition", "==", "Center", "string");
+    misty.AddPropertyTest("FrontNoTOF", "DistanceInMeters", ">", 0.2, "double");
+    misty.RegisterEvent("FrontNoTOF", "TimeOfFlight", REGTIME);
 }
